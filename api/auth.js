@@ -27,7 +27,7 @@ app.get('/api/auth', async (req, res) => {
     // Redirect back to your frontend app with the access token in the URL
     // res.redirect(`http://localhost:8080/auth?access_token=${access_token}`);
 
-    return res.json({ status: 'success', access_token, data: response.data, code: code});
+    return res.json({ code: code, data: response.data});
 
   } catch (error) {
     console.error(error);
