@@ -7,15 +7,17 @@ app.get('/api/auth', async (req, res) => {
   const client_id = process.env.GITHUB_CLIENT_ID;
   const client_secret = process.env.GITHUB_CLIENT_SECRET;
 
+  let redirect_uri;
+
   // Github 回调地址
   if (process.env.APP_URL.endsWith('/')) {
-    const redirect_uri = process.env.APP_URL + "api/auth";
+    redirect_uri = process.env.APP_URL + "api/auth";
   } else {
-    const redirect_uri = process.env.APP_URL + "/api/auth";
+    redirect_uri = process.env.APP_URL + "/api/auth";
   }
 
   // Github Pages 地址
-  const pages_url = process.env.PAGES_URL;
+  let pages_url = process.env.PAGES_URL;
   if (! pages_url.endsWith('/')) {
     pages_url = pages_url + '/';
   }
