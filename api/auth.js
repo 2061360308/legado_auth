@@ -43,7 +43,8 @@ app.get('/api/auth', async (req, res) => {
     const access_token = response.data.access_token;
 
     if(!access_token) {
-      return res.status(500).send('An error occurred while trying to authenticate');
+      console.error("Github未返回访问令牌：", response.data);
+      return res.status(500).send({message: 'No access token returned from Github.', data: respose.data});
     }
 
     // Redirect back to your frontend app with the access token in the URL
@@ -52,8 +53,8 @@ app.get('/api/auth', async (req, res) => {
     // return res.json({ code: code, data: response.data});
 
   } catch (error) {
-    console.error(error);
-    res.status(500).send('An error occurred while trying to authenticate');
+    console.error("认证未知错误：",error);
+    res.status(500).send({message: 'An error occurred while trying to authenticate', error: error});
   }
 });
 
