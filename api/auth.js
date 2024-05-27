@@ -57,7 +57,7 @@ app.get('/api/auth', async (req, res) => {
   }
 });
 
-app.get('/', async (req, res) => {
+app.get('/api', async (req, res) => {
   res.send('Your API is working properly. The github auth route is at /api/auth');
 });
 
