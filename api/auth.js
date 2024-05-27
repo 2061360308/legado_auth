@@ -44,7 +44,7 @@ app.get('/api/auth', async (req, res) => {
 
     if(!access_token) {
       console.error("Github未返回访问令牌：", response.data);
-      return res.status(500).send({message: 'No access token returned from Github.', data: respose.data});
+      return res.status(500).send({message: 'No access token returned from Github.', data: response.data});
     }
 
     // Redirect back to your frontend app with the access token in the URL
