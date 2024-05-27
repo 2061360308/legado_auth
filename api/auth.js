@@ -4,6 +4,9 @@ const app = express();
 
 app.get('/api/auth', async (req, res) => {
   const code = req.query.code;
+
+  if(!code) return res.status(400).send('No code provided');
+  
   const client_id = process.env.GITHUB_CLIENT_ID;
   const client_secret = process.env.GITHUB_CLIENT_SECRET;
 
@@ -39,6 +42,10 @@ app.get('/api/auth', async (req, res) => {
 
     const access_token = response.data.access_token;
 
+    if(!access_token) {
+      return res.status(500).send('An error occurred while trying to authenticate');
+    }
+
     // Redirect back to your frontend app with the access token in the URL
     res.redirect(`${pages_url}#/?access_token=${access_token}`);
 
@@ -48,6 +55,10 @@ app.get('/api/auth', async (req, res) => {
     console.error(error);
     res.status(500).send('An error occurred while trying to authenticate');
   }
+});
+
+app.get('/', async (req, res) => {
+  res.send('Your API is working properly. The github auth route is at /api/auth');
 });
 
 module.exports = app;
